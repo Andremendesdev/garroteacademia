@@ -4,6 +4,7 @@ import { Location } from "@/components/Location";
 import { Modalidades } from "@/components/Modalidades";
 import { Benefits } from "@/components/Benefits";
 import { Pricing } from "@/components/Pricing";
+import { GoogleReviews } from "@/components/GoogleReviews";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <Modalidades />
       <Benefits />
       <Pricing />
+      <GoogleReviews />
       <Footer />
     </main>
   );

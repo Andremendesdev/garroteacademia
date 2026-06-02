@@ -139,7 +139,7 @@
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-  filter: saturate(0.65) contrast(1.05) brightness(0.58);
+  filter: saturate(0.72) contrast(1.05) brightness(0.7);
 }
 
 /* Cinematic full-bleed background — desktop */
@@ -150,7 +150,7 @@
   height: 100% !important;
   min-width: 100%;
   min-height: 100%;
-  filter: saturate(0.65) contrast(1.05) brightness(0.58);
+  filter: saturate(0.72) contrast(1.05) brightness(0.7);
 }
 
 @media (min-width: 1024px) {
@@ -493,6 +493,43 @@ a.group:hover .navbar-logo-icon {
 
 .structure-scroll::-webkit-scrollbar {
   display: none;
+}
+
+.structure-gallery-nav:not(:disabled) {
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+
+.structure-gallery-nav:not(:disabled) svg {
+  filter: drop-shadow(0 0 4px rgba(220, 38, 38, 0.65));
+}
+
+/* Google Reviews — marquee direita → esquerda */
+@keyframes google-reviews-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.google-reviews-track {
+  animation: google-reviews-scroll 55s linear infinite;
+  will-change: transform;
+}
+
+.google-reviews-marquee:hover .google-reviews-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .google-reviews-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* Botão flutuante WhatsApp */

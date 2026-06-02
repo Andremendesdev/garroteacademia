@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const mainPhoto = {
@@ -71,7 +72,31 @@ function GalleryCard({
 
 export function Location() {
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    setCanScrollLeft(el.scrollLeft > 8);
+    setCanScrollRight(el.scrollLeft < maxScroll - 8);
+  }, []);
+
+  const scrollGallery = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const firstCard = el.querySelector<HTMLElement>('[role="listitem"]');
+    const step = firstCard
+      ? firstCard.offsetWidth + 16
+      : Math.round(el.clientWidth * 0.85);
+    el.scrollBy({
+      left: direction === "left" ? -step : step,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -90,6 +115,24 @@ export function Location() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || !visible) return;
+
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+
+    const ro = new ResizeObserver(updateScrollState);
+    ro.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+      ro.disconnect();
+    };
+  }, [visible, updateScrollState]);
 
   return (
     <section
@@ -200,25 +243,49 @@ export function Location() {
             <p className="text-xs font-medium tracking-[0.2em] text-zinc-500 uppercase">
               Conheça os espaços
             </p>
-            <p className="hidden text-[11px] text-zinc-600 sm:block">
-              Arraste para explorar →
+            <p className="text-[11px] text-zinc-600">
+              <span className="sm:hidden">Use as setas ou arraste</span>
+              <span className="hidden sm:inline">Arraste ou use as setas</span>
             </p>
           </div>
 
-          <div
-            className="structure-scroll -mx-6 flex cursor-grab gap-4 overflow-x-auto overscroll-x-contain px-6 pb-2 active:cursor-grabbing"
-            role="list"
-            aria-label="Galeria da estrutura da academia"
-          >
-            {galleryPhotos.map((photo, index) => (
-              <GalleryCard
-                key={photo.src}
-                photo={photo}
-                index={index}
-                visible={visible}
-              />
-            ))}
-            <div className="w-2 shrink-0 snap-none sm:w-4" aria-hidden />
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => scrollGallery("left")}
+              disabled={!canScrollLeft}
+              aria-label="Ver fotos anteriores"
+              className="structure-gallery-nav structure-gallery-nav--left glass-card absolute top-1/2 left-2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 text-red-600 shadow-[0_0_20px_rgba(0,0,0,0.45)] transition-[border-color,box-shadow,opacity,transform] duration-300 hover:border-red-800/50 hover:shadow-[0_0_24px_rgba(220,38,38,0.35)] active:scale-95 disabled:pointer-events-none disabled:opacity-35 sm:left-4 sm:h-11 sm:w-11"
+            >
+              <ChevronLeft size={22} strokeWidth={2.5} aria-hidden />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => scrollGallery("right")}
+              disabled={!canScrollRight}
+              aria-label="Ver próximas fotos"
+              className="structure-gallery-nav structure-gallery-nav--right glass-card absolute top-1/2 right-2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 text-red-600 shadow-[0_0_20px_rgba(0,0,0,0.45)] transition-[border-color,box-shadow,opacity,transform] duration-300 hover:border-red-800/50 hover:shadow-[0_0_24px_rgba(220,38,38,0.35)] active:scale-95 disabled:pointer-events-none disabled:opacity-35 sm:right-4 sm:h-11 sm:w-11"
+            >
+              <ChevronRight size={22} strokeWidth={2.5} aria-hidden />
+            </button>
+
+            <div
+              ref={scrollRef}
+              className="structure-scroll -mx-6 flex cursor-grab gap-4 overflow-x-auto overscroll-x-contain px-6 pb-2 active:cursor-grabbing"
+              role="list"
+              aria-label="Galeria da estrutura da academia"
+            >
+              {galleryPhotos.map((photo, index) => (
+                <GalleryCard
+                  key={photo.src}
+                  photo={photo}
+                  index={index}
+                  visible={visible}
+                />
+              ))}
+              <div className="w-2 shrink-0 snap-none sm:w-4" aria-hidden />
+            </div>
           </div>
         </div>
       </div>

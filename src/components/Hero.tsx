@@ -54,25 +54,25 @@ export function Hero() {
           className="cinematic-bg-image hidden md:block"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-[#060608]/68" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#060608] via-[#060608]/82 to-[#060608]/48" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/20 to-[#060608]/35" />
+        <div className="absolute inset-0 bg-[#060608]/48" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#060608]/92 via-[#060608]/58 to-[#060608]/32" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060608]/75 via-[#060608]/12 to-[#060608]/22" />
       </div>
 
       {/* ── Atmospheric layers (neutro, sem vermelho) ── */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_4%_6%,rgba(8,10,35,0.55)_0%,transparent_65%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_4%_6%,rgba(8,10,35,0.38)_0%,transparent_65%)]"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_85%_at_50%_45%,transparent_35%,rgba(0,0,0,0.82)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_85%_at_50%_45%,transparent_40%,rgba(0,0,0,0.65)_100%)]"
         aria-hidden
       />
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--bg-deep)]/90 to-transparent sm:h-56 sm:from-[var(--bg-deep)]"
         aria-hidden
       />
-      <div className="grain-overlay z-0 opacity-30" aria-hidden />
+      <div className="grain-overlay z-0 opacity-22" aria-hidden />
 
       {/* ── Decorative depth (tons neutros) ── */}
       <div
@@ -85,7 +85,7 @@ export function Hero() {
       />
       {/* ── Content ── */}
       <div className="relative z-10 flex w-full flex-col pt-[70px] pb-4 sm:pb-6 md:min-h-dvh md:items-start lg:pt-[calc(70px+4.5rem)] lg:pb-8">
-        <div className="mx-auto w-full max-w-7xl px-6 py-10 sm:py-12 lg:px-12 lg:pb-10 lg:pt-6">
+        <div className="mx-auto w-full max-w-7xl px-6 pt-16 pb-10 sm:py-12 lg:px-12 lg:pb-10 lg:pt-6">
           <div className="max-w-3xl">
             <div className="flex flex-col gap-7 lg:gap-9">
               <Badge
