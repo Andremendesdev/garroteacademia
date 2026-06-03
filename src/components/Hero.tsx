@@ -74,6 +74,10 @@ export function Hero() {
       />
       <div className="grain-overlay z-0 opacity-22" aria-hidden />
 
+      {/* Grid futurista vermelha — profundidade sutil */}
+      <div className="hero-futuristic-grid pointer-events-none absolute inset-0 z-[2]" aria-hidden />
+      <div className="hero-futuristic-grid-floor pointer-events-none absolute inset-0 z-[2]" aria-hidden />
+
       {/* ── Decorative depth (tons neutros) ── */}
       <div
         className="ambient-orb pointer-events-none absolute -right-32 top-1/4 h-[420px] w-[420px] rounded-full"
