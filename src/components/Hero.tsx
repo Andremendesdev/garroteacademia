@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  Users,
+  Dumbbell,
   Shield,
   Zap,
   Star,
@@ -17,12 +17,12 @@ const HERO_IMAGE = "/fundo2.png";
 
 const stats = [
   { value: "+1.200", label: "Alunos Ativos" },
-  { value: "8 Anos", label: "De Excelência" },
   { value: "4.9", label: "Avaliação", icon: true },
+  { value: "Premium", label: "Equipamentos" },
 ];
 
 const trustBadges = [
-  { icon: Users, text: "+1.200 alunos" },
+  { icon: Dumbbell, text: "4+ modalidades" },
   { icon: Shield, text: "Equipamentos premium" },
   { icon: Zap, text: "Acomp. profissional" },
 ];
@@ -133,18 +133,28 @@ export function Hero() {
                 <span className="font-semibold text-zinc-100">NÃO PARAR</span>
               </p>
 
-              <div className="animate-slide-up delay-400 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="group">
+              <div className="animate-slide-up delay-400 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:items-center">
+                <Button
+                  asChild
+                  size="lg"
+                  className="group h-14 w-full gap-2.5 px-8 py-0 shadow-[0_0_20px_rgba(220,38,38,0.38)] sm:w-auto"
+                >
                   <Link href="#planos">
-                    Começar Agora
+                    <span>Começar Agora</span>
                     <ArrowRight
-                      size={16}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
+                      size={18}
+                      strokeWidth={2}
+                      className="size-[1.125rem] shrink-0 transition-transform duration-300 group-hover:translate-x-0.5"
                       aria-hidden
                     />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  asChild
+                  className="h-14 w-full border-white/15 bg-white/[0.06] px-8 py-0 text-[0.9375rem] font-semibold text-zinc-100 sm:w-auto"
+                >
                   <Link href="#estrutura">Ver Estrutura</Link>
                 </Button>
               </div>
@@ -154,7 +164,7 @@ export function Hero() {
                   <Badge
                     key={text}
                     variant="default"
-                    className="min-w-0 flex-col justify-center gap-1 px-1.5 py-1.5 text-center text-[8px] leading-snug whitespace-normal sm:flex-row sm:gap-2 sm:px-3 sm:text-[11px] transition-shadow hover:shadow-[0_0_14px_rgba(220,38,38,0.22)] hover:border-red-800/40"
+                    className="min-w-0 flex-col justify-center gap-1 border-zinc-800/70 bg-[#060608]/75 px-1.5 py-1.5 text-center text-[8px] leading-snug whitespace-normal backdrop-blur-sm sm:flex-row sm:gap-2 sm:px-3 sm:text-[11px] text-zinc-400 transition-shadow hover:border-red-800/50 hover:bg-[#060608]/85 hover:shadow-[0_0_14px_rgba(220,38,38,0.22)]"
                   >
                     <Icon size={12} className="text-red-600 shrink-0 max-sm:h-2.5 max-sm:w-2.5" aria-hidden />
                     {text}
@@ -163,31 +173,33 @@ export function Hero() {
               </div>
 
               <div
-                className="animate-slide-up delay-600 flex flex-wrap items-stretch gap-0 divide-x divide-zinc-800/60 border-t border-red-900/25 pt-6 shadow-[0_-1px_20px_rgba(220,38,38,0.08)] lg:border-0 lg:pt-1 lg:shadow-none"
+                className="animate-slide-up delay-600 mx-auto w-full max-w-xl border-t border-red-900/25 pt-6 shadow-[0_-1px_20px_rgba(220,38,38,0.08)] lg:mx-0 lg:max-w-none lg:border-0 lg:pt-1 lg:shadow-none"
                 role="list"
                 aria-label="Indicadores da academia"
               >
-                {stats.map(({ value, label, icon }) => (
-                  <div
-                    key={label}
-                    role="listitem"
-                    className="flex min-w-[100px] flex-col gap-0.5 px-5 first:pl-0 last:pr-0"
-                  >
-                    <span className="flex items-center gap-1 text-xl font-semibold tracking-tight text-white text-neon-red">
-                      {value}
-                      {icon && (
-                        <Star
-                          size={14}
-                          className="fill-red-600 text-red-600 drop-shadow-[0_0_6px_rgba(220,38,38,0.8)]"
-                          aria-label="estrelas"
-                        />
-                      )}
-                    </span>
-                    <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-600">
-                      {label}
-                    </span>
-                  </div>
-                ))}
+                <div className="grid grid-cols-3 divide-x divide-zinc-800/60">
+                  {stats.map(({ value, label, icon }) => (
+                    <div
+                      key={label}
+                      role="listitem"
+                      className="flex min-w-0 flex-col items-center justify-center gap-0.5 px-2 text-center sm:px-5 lg:items-start lg:text-left"
+                    >
+                      <span className="flex items-center justify-center gap-1 text-lg font-semibold tracking-tight text-white text-neon-red sm:text-xl lg:justify-start">
+                        {value}
+                        {icon && (
+                          <Star
+                            size={14}
+                            className="fill-red-600 text-red-600 drop-shadow-[0_0_6px_rgba(220,38,38,0.8)]"
+                            aria-label="estrelas"
+                          />
+                        )}
+                      </span>
+                      <span className="text-[9px] font-medium uppercase leading-tight tracking-wider text-zinc-600 sm:text-[11px]">
+                        {label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
